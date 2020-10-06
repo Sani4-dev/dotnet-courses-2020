@@ -18,7 +18,8 @@ namespace Task5
             Regex myRegex = new Regex(myPattern);
 
             Console.WriteLine("Введите HTML текст:");
-            inputString = Console.ReadLine();
+            //inputString = Console.ReadLine();
+            inputString = "<div class=\"kjhgkjh hgkhgkyu uygu\" id=\"uygu\">jhgkjgh";
             MatchCollection matches = myRegex.Matches(inputString);
             if (matches.Count > 0)
             {

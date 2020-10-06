@@ -12,7 +12,7 @@ namespace Task6
         static void Main(string[] args)
         {
             string inputString;
-            string patternScience = @"-?\d+\,\d+[e]-?\d+";
+            string patternScience = @"-?\d+\,\d+e-?\d+";
             string patternUsual = @"-?\d+";
             Regex myRegex = new Regex(patternScience);
 

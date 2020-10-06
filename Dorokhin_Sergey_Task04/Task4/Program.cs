@@ -13,7 +13,7 @@ namespace Task4
         {
             const int scaleCoef = 1000;
 
-            int N = 100;
+            int N = 1000;
             double timeString;
             double timeStringBuilder;
             string str = "";
@@ -35,6 +35,7 @@ namespace Task4
             {
                 sb.Append("*");
             }
+            sb.ToString();
             sw.Stop();
             timeStringBuilder = sw.Elapsed.TotalMilliseconds * scaleCoef;
             Console.Write("Время, затраченное классом \"StringBuilder\" ");

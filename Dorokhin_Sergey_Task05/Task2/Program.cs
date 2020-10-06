@@ -47,29 +47,26 @@ namespace Task2
                 Console.WriteLine(e.Message);
             }
         }
-        public double CircumFerence
-        {
-            get
-            {
-                return 2 * 3.14 * _r;
-            }
-        }
-        public double AreaOfCircle
-        {
-            get
-            {
-                return 3.14 * _r * _r;
-            }
-        }
+
+        public double Length => 2 * Math.PI * _r;
+
+        public double Area => Math.PI * Math.Pow(_r, 2.0);
     }
+
+
     class Program
     {
         static void Main(string[] args)
         {
-            var round = new Round(55.0, 50.0, 14.0);
-
-            Console.WriteLine($"Длина описанной окружности: {round.CircumFerence}");
-            Console.WriteLine($"Площадь круга: {round.AreaOfCircle}");
+            Round round;
+            try
+            {
+                round = new Round(55.0, 50.0, 14.0);
+            }
+            catch { }
+            var str = round.ToString();
+            Console.WriteLine($"Длина описанной окружности: {round.Length:f1}");
+            Console.WriteLine($"Площадь круга: {round.Area:f1}");
             
             Console.ReadKey();
         }
