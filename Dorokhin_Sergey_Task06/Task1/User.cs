@@ -10,6 +10,7 @@ namespace Task1
         protected int _day;
         protected int _month;
         protected int _year;
+        protected int _age;
         
         public User(string surname, string name, string patronymic, int day, int month, int year)
         {
@@ -46,6 +47,8 @@ namespace Task1
                 throw new Exception($"При заданных годе и месяце день рождения" +
                     $" не может быть меньше 1 или больше {DayMaxInCurrentYearMonth}!");
             }
+
+            _age = YearCurrent - _year;
         }
 
         public string Surname { get; set; }
@@ -54,7 +57,7 @@ namespace Task1
         
         public string Patronymic { get; set; }
 
-        public int Year
+        public virtual int Year
         {
             get
             {
@@ -73,7 +76,7 @@ namespace Task1
             }
         }
 
-        public int Month
+        public virtual int Month
         {
             get
             {
@@ -92,7 +95,7 @@ namespace Task1
             }
         }
 
-        public int Day
+        public virtual int Day
         {
             get
             {
@@ -114,6 +117,6 @@ namespace Task1
             }
         }
 
-        public int Age => YearCurrent - _year;
+        public virtual int Age => _age;
     }
 }
