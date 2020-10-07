@@ -4,52 +4,42 @@ namespace Task3
 {
     public class Triangle
     {
-        private double _a;
-        private double _b;
-        private double _c;
+        protected double _sideA;
+        protected double _sideB;
+        protected double _sideC;
 
-        public Triangle(double a, double b, double c)
+        public Triangle(double sideA, double sideB, double sideC)
         {
-            if (a > 0.0)
+            if (sideA > 0.0 && sideB > 0.0 && sideC > 0.0)
             {
-                _a = a;
+                if (sideA + sideB > sideC && sideC + sideB > sideA && sideA + sideC > sideB)
+                {
+                    //Вопрос к преподавателю о вложенности циклов и о работе "exception"!!!
+                    _sideA = sideA;
+                    _sideB = sideB;
+                    _sideC = sideC;
+                }
+                else
+                {
+                    throw new Exception("Сумма любых 2-х сторон треугольника должна быть больше 3-ей стороны!");
+                }
             }
             else
             {
-                throw new Exception("Значение параметра \"a\" " + 
-                    "должно быть больше 0");
-            }
-            if (b > 0.0)
-            {
-                _b = b;
-            }
-            else
-            {
-                throw new Exception("Значение параметра \"b\" " + 
-                    "должно быть больше 0");
-            }
-            if (c > 0.0)
-            {
-                _c = c;
-            }
-            else
-            {
-                throw new Exception("Значение параметра \"c\" " + 
-                    "должно быть больше 0");
+                throw new Exception("Значение параметров \"sideA\", \"sideB\" и \"sideC\" должно быть больше 0!");
             }
         }
 
-        public double Perimeter()
+        public virtual double Perimeter()
         {
-            return _a + _b + _c;
+            return _sideA + _sideB + _sideC;
         }
 
-        public double Area()
+        public virtual double Area()
         {
-            double halfPerimeter = (_a + _b + _c) / 2;
+            double halfPerimeter = (_sideA + _sideB + _sideC) / 2;
 
-            return Math.Sqrt(halfPerimeter * (halfPerimeter - _a) *
-                (halfPerimeter - _b) * (halfPerimeter - _c));
+            return Math.Sqrt(halfPerimeter * (halfPerimeter - _sideA) * (halfPerimeter - _sideB) * (halfPerimeter - _sideC));
         }
     }
 }
