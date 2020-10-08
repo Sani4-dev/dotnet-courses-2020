@@ -4,8 +4,11 @@ namespace Task1
 {
     public class User
     {
-        protected const int YearCurrent = 2020;
-        protected const int YearMin = 1900;
+        protected const int deltaYear = 100;
+        //protected const int YearCurrent = 2020;
+        //protected const int YearMin = 1900;
+        protected readonly int YearCurrent = DateTime.Now.Year;
+        protected readonly int YearMin = DateTime.Now.Year - deltaYear;
         protected const int MonthMax = 12;
         protected int _day;
         protected int _month;

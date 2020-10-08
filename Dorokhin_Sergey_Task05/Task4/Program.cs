@@ -37,6 +37,7 @@ namespace Task4
             var myStringToCompare1 = new MyString("Это строка близнец");
             var myStringToCompare2 = new MyString("Это строка близнец");
 
+            if(myStringToCompare2==null) myStringToCompare2 = new MyString("Это строка близнец");
             Console.WriteLine($"Содержимое первого обьекта класса \"MyString\": {myStringToCompare1}");
 
             Console.WriteLine($"Содержимое второго обьекта класса \"MyString\": {myStringToCompare2}");

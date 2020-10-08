@@ -6,11 +6,6 @@ namespace Task4
     {
         protected char[] _arrayOfChar;
 
-        /*public MyString(char[] inputArrayOfChar)
-        {
-            inputArrayOfChar.CopyTo(_arrayOfChar, 0);
-        }*/
-
         public MyString(string inputString)
         {
             _arrayOfChar = inputString.ToCharArray();
@@ -51,6 +46,15 @@ namespace Task4
 
         public static bool operator ==(MyString myStringFirstOperand, MyString myStringSecondOperand)
         {
+            //object firstOperand = myStringFirstOperand;
+            //object secondOperand = myStringSecondOperand;
+
+            if(myStringFirstOperand is null || myStringSecondOperand is null)//if (firstOperand == null || secondOperand == null)
+            {
+                return false;
+            }
+            
+            
             return String.Compare(myStringFirstOperand.ToString(), 
                 myStringSecondOperand.ToString()) == 0;
         }

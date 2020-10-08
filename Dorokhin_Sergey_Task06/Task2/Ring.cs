@@ -2,26 +2,26 @@
 
 namespace Task2
 {
-    public class Ring : Round
+    public class Ring 
     {
         protected double _radiusExternal;
+        private Round innerRound;
+        private Round outerRound;
         
         public Ring(double coordinateOfCenterX, double coordinateOfCenterY, double radius, double radiusExternal)
-            : base(coordinateOfCenterX, coordinateOfCenterY, radius)
+            //: base(coordinateOfCenterX, coordinateOfCenterY, radius)
         {
-            if (radiusExternal > _radius && radiusExternal < _coordinateOfCenterX && radiusExternal < _coordinateOfCenterY)
+            if (radiusExternal <= radius)
             {
-                _radiusExternal = radiusExternal;
+                throw new Exception("Значение \"radiusExternal\" должно быть больше значения \"radius\"!");
             }
-            else
-            {
-                throw new Exception("Значение \"radiusExternal\" должно быть больше значения \"radius\" и меньше, " +
-                    "чем \"coordinateOfCenterX\" или \"coordinateOfCenterY\"!");
-            }
+
+            innerRound = new Round(coordinateOfCenterX, coordinateOfCenterY, radius);
+            outerRound = new Round(coordinateOfCenterX, coordinateOfCenterY, radiusExternal);
         }
     
-        public override double Length => 2 * Math.PI * _radius + 2 * Math.PI * _radiusExternal;
+        public double Length => innerRound.Length + outerRound.Length;
         
-        public override double Area => Math.PI * (Math.Pow(_radiusExternal, 2.0) - Math.Pow(_radius, 2.0));
+        public double Area => outerRound.Area - innerRound.Area;
     }
 }

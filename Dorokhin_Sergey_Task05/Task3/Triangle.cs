@@ -14,7 +14,6 @@ namespace Task3
             {
                 if (sideA + sideB > sideC && sideC + sideB > sideA && sideA + sideC > sideB)
                 {
-                    //Вопрос к преподавателю о вложенности циклов и о работе "exception"!!!
                     _sideA = sideA;
                     _sideB = sideB;
                     _sideC = sideC;
