@@ -12,14 +12,16 @@ namespace Task5
         static void Main(string[] args)
         {
             string inputString;
-            string myPattern = @"</*\w*\s*\w*=*""*\w*""*\w*>";
+            string myPattern = @"</*\w*( \w*=(""|')\w*( \w*)*(""|'))*>";//@"</*\w*\s*\w*=*""*\w*""*\w*>";
             string target = "_";
             string resultString;
             Regex myRegex = new Regex(myPattern);
 
             Console.WriteLine("Введите HTML текст:");
             //inputString = Console.ReadLine();
-            inputString = "<div class=\"kjhgkjh hgkhgkyu uygu\" id=\"uygu\">jhgkjgh";
+            inputString = "<div class=\"kjhgkjh hgkhgkyu uygu\" id=\"uygu\">Содержимое HTML тэга</div>Еще тэг<div id='letter'>" +
+                "<b>Это</b> текст <i>c</i> <font color=\"red\">HTML</font>";
+            Console.WriteLine(inputString);
             MatchCollection matches = myRegex.Matches(inputString);
             if (matches.Count > 0)
             {
