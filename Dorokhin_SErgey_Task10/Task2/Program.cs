@@ -10,7 +10,27 @@ namespace Task2
     {
         static void Main(string[] args)
         {
-            var Ostin = new Person("Ostin");
+            Person[] persons = new Person[] { new Person("Ostin"), new Person("Jack"), new Person("Mihael") };
+
+            foreach (var item in persons)
+            {
+                Console.WriteLine($"[На работу пришел {item.Name}]");
+
+                item.OnArrive(new ArriveEventArgs(new DateTime(2020, 10, 21, 8, 0, 0), persons));
+
+                Console.WriteLine();
+            }
+
+            foreach (var item in persons)
+            {
+                Console.WriteLine($"[{item.Name} ушел домой]");
+
+                item.OnQuit();
+
+                Console.WriteLine();
+            }
+            
+            /*var Ostin = new Person("Ostin");
             var Jack = new Person("Jack");
             var Mihael = new Person("Mihael");
 
@@ -53,7 +73,7 @@ namespace Task2
 
             Console.WriteLine($"[{Mihael.Name} ушел домой]");
             Mihael.OnQuit();
-            Console.WriteLine();
+            Console.WriteLine();*/
 
 
             Console.ReadKey();

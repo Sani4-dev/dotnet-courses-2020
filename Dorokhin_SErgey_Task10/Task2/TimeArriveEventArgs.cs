@@ -2,13 +2,16 @@
 
 namespace Task2
 {
-    public class TimeArriveEventArgs : EventArgs
+    public class ArriveEventArgs : EventArgs
     {
-        public TimeArriveEventArgs(DateTime time)
+        public ArriveEventArgs(DateTime time, Person[] persons)
         {
             Time = time;
+            ListOfPersons = persons;
         }
 
         public DateTime Time { get; }
+
+        public Person[] ListOfPersons { get; }
     }
 }
