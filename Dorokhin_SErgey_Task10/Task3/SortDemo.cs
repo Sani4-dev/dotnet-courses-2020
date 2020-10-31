@@ -7,45 +7,47 @@ namespace Task3
     {
         protected delegate bool ComparatorTwoString(string srt1, string str2);
 
-        public static event EventHandler SortDone;
+        public event EventHandler<SortEventArgs> SortDone;
 
-        public static void Sort(object args)
+        public SortDemo(string[] args)
         {
-            if (args == null)
+            StringsArray = args;
+        }
+
+        public string[] StringsArray { get; }
+
+        public void Sort()
+        {
+            if (StringsArray == null)
             {
                 throw new ArgumentNullException();
             }
 
-            if (args.GetType() != typeof(string[]))
-            {
-                throw new Exception("Параметр \"obj\" должен быть типа \"string[]\"");
-            }
-            
             ComparatorTwoString comparatorTwoString = Comparator.StringOneGreaterThenStringTwo;
 
-            string[] arrayOfStrings = (string[])args;
-
-            for (int i = 0; i < arrayOfStrings.Length; i++)
+            for (int i = 0; i < StringsArray.Length; i++)
             {
-                for (int j = i; j < arrayOfStrings.Length; j++)
+                Console.WriteLine($"Прогресс сортировки {i} из {StringsArray.Length}");
+                Thread.Sleep(1000);
+                for (int j = i; j < StringsArray.Length; j++)
                 {
-                    if (comparatorTwoString.Invoke(arrayOfStrings[i], arrayOfStrings[j]))
+                    if (comparatorTwoString.Invoke(StringsArray[i], StringsArray[j]))
                     {
-                        string temp = arrayOfStrings[j];
-                        arrayOfStrings[j] = arrayOfStrings[i];
-                        arrayOfStrings[i] = temp;
+                        string temp = StringsArray[j];
+                        StringsArray[j] = StringsArray[i];
+                        StringsArray[i] = temp;
                     }
                 }
             }
 
-            SortDone?.Invoke(arrayOfStrings, EventArgs.Empty);
+            SortDone?.Invoke(this, new SortEventArgs(StringsArray));
         }
 
-        public static void SortInNewThread(string[] args)
+        public void SortInNewThread()
         {
-            var threadToSorting = new Thread(new ParameterizedThreadStart(Sort));
+            var threadToSorting = new Thread(new ThreadStart(Sort));
 
-            threadToSorting.Start(args);
+            threadToSorting.Start();
         }
     }
 }

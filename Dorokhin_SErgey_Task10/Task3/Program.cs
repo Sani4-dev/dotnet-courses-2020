@@ -8,43 +8,59 @@ namespace Task3
 {
     class Program
     {
-        public static void TheHandlerOfEventSortingDone(object obj, EventArgs e)
+        public static void MainHandler(object sender, SortEventArgs e)
         {
-            if (obj.GetType() != typeof(string[]))
+            if (e.StringsArray == null)
             {
-                throw new Exception("Параметр \"obj\" должен быть типа \"string[]\"");
+                throw new ArgumentNullException();
             }
 
-            string[] arrayOfString = (string[])obj;
-            
             Console.WriteLine("Значение массива строк после сортировки:");
 
-            foreach (var item in arrayOfString)
+            foreach (var str in e.StringsArray)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(str);
             }
 
         }
 
-        static void Main(string[] args)
+        public static string PrintAllStrings(string[] strings)
         {
-            string[] arrayOfString = new string[]{"different", "more", "linked", "apple", "pinapple", "sea", "automative", "sun",
-                "foreground"};
-
-            Console.WriteLine("Значиние массива строк до сортировки:");
-
-            foreach (var item in arrayOfString)
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine();
+            
+            foreach (var str in strings)
             {
-                Console.WriteLine(item);
+                sb.Append(str);
+                sb.AppendLine();
             }
 
-            Console.WriteLine();
+            return sb.ToString();
+        }
 
-            SortDemo.SortDone += TheHandlerOfEventSortingDone;
-            
-            SortDemo.SortInNewThread(arrayOfString);
+        public static void BeginSort(string[] args)
+        {
+            var sd = new SortDemo(args);
 
-            
+            sd.SortDone += MainHandler;
+            sd.SortInNewThread();
+        }
+
+        static void Main(string[] args)
+        {
+            string[] fruits = new string[]{"apple", "avocado", "banana", "date", "pinapple", "fiq", "pomegranate"};
+            string[] vegetables = new string[] { "eggplant", "cabbage", "cauliflower", "potato", "pea", "dill", "asparagus" };
+
+            Console.WriteLine($"Значиние массива фруктов до сортировки:{PrintAllStrings(fruits)}");
+            Console.WriteLine($"Значиние массива овощей до сортировки:{PrintAllStrings(vegetables)}");
+
+            Console.WriteLine("Запуск сортировки фруктов:");
+            BeginSort(fruits);
+
+            Console.WriteLine("Запуск сортировки овощей:");
+            BeginSort(vegetables);
+
+          
             Console.ReadKey();
         }
     }

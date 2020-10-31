@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace Task2
         static void Main(string[] args)
         {
             string format = "yyyy.MM.dd HH-mm-ss";
-            string pathToWatching = @"C:\Users\sd_ma\source\repos\Dorokhin_Sergey_Task12\Task2\DirectoryToWatching";
-            string pathToBackuping = @"C:\Users\sd_ma\source\repos\Dorokhin_Sergey_Task12\Task2\backup";
+            string pathToWatching = ConfigurationManager.AppSettings.Get("pathToWatching");
+            string pathToBackuping = ConfigurationManager.AppSettings.Get("pathToBackuping");
 
             Console.WriteLine("Select mode (input \"w\" to select \"watcher mode\" or input \"b\" to select \"restore backup mode\")");
 
