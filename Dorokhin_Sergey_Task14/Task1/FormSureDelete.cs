@@ -12,9 +12,18 @@ namespace Task1
 {
     public partial class FormSureDelete : Form
     {
-        public FormSureDelete()
+        public FormSureDelete(Caller caller)
         {
             InitializeComponent();
+
+            if (caller == Caller.User)
+            {
+                labelSureDelete.Text = "Вы уверены, что хотите удалить пользователя";
+            }
+            else
+            {
+                labelSureDelete.Text = "Вы уверены, что хотите удалить награду";
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)

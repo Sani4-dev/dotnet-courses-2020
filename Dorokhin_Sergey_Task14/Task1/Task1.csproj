@@ -46,6 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caller.cs" />
+    <Compile Include="FormCreationReward.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormCreationReward.Designer.cs">
+      <DependentUpon>FormCreationReward.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormCreationUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -68,6 +75,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reward.cs" />
     <Compile Include="User.cs" />
+    <EmbeddedResource Include="FormCreationReward.resx">
+      <DependentUpon>FormCreationReward.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormCreationUser.resx">
       <DependentUpon>FormCreationUser.cs</DependentUpon>
     </EmbeddedResource>

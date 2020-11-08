@@ -13,31 +13,46 @@ namespace Task1
 {
     public partial class FormCreationUser : Form
     {
+        private const int MaxLengthFirstName = 50;
+        private const int MinLengthFirstName = 3;
+        private const int MaxLengthLastName = 50;
+        private const int MinLengthLastName = 3;
+        private const int MaxAge = 150;
+
+        private BindingList<Reward> _rewardsTemp = new BindingList<Reward>();
+
         private readonly ErrorProvider _errorProvider;
         private readonly User _user;
+        private readonly BindingList<Reward> _rewards;
+
         private readonly bool isCreateUser;
 
-        public FormCreationUser()
+        public FormCreationUser(BindingList<Reward> rewards)
         {
             InitializeComponent();
 
             _errorProvider = new ErrorProvider();
             isCreateUser = true;
+            _rewards = rewards;
         }
 
 
-        public FormCreationUser(User user)
+        public FormCreationUser(User user, BindingList<Reward> rewards)
         {
             InitializeComponent();
 
             _errorProvider = new ErrorProvider();
             isCreateUser = false;
             _user = user;
+            _rewards = rewards;
+            _rewardsTemp = user.GetRewards();
         }
 
         private bool ValidateFirstName()
         {
-            if (string.IsNullOrEmpty(txtFirstName.Text) || txtFirstName.Text.Length < 3 || txtFirstName.Text.Length > 50)
+            if (string.IsNullOrEmpty(txtFirstName.Text) || 
+                txtFirstName.Text.Length < MinLengthFirstName || 
+                txtFirstName.Text.Length > MaxLengthFirstName)
             {
                 _errorProvider.SetError(txtFirstName, "Неверные данные");
                 return false;
@@ -49,7 +64,9 @@ namespace Task1
 
         private bool ValidateLastName()
         {
-            if (string.IsNullOrEmpty(txtLastName.Text) || txtLastName.Text.Length < 3 || txtLastName.Text.Length > 50)
+            if (string.IsNullOrEmpty(txtLastName.Text) || 
+                txtLastName.Text.Length < MinLengthLastName || 
+                txtLastName.Text.Length > MaxLengthLastName)
             {
                 _errorProvider.SetError(txtLastName, "Неверные данные");
                 return false;
@@ -64,7 +81,7 @@ namespace Task1
             if (DateTime.TryParseExact(txtBirthDay.Text, "dd.MM.yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, 
                 out DateTime birthDay))
             {
-                if (birthDay < DateTime.Now && (DateTime.Now.Year - birthDay.Year) < 150)
+                if (birthDay < DateTime.Now && (DateTime.Now.Year - birthDay.Year) < MaxAge)
                 {
                     _errorProvider.SetError(txtBirthDay, string.Empty);
                     return (BirthDay = birthDay) == birthDay;
@@ -80,6 +97,8 @@ namespace Task1
         public string LastName { get; private set; }
 
         public DateTime BirthDay { get; private set; }
+
+        public BindingList<Reward> Rewards { get; set; }
 
         private void btnCreate_Click(object sender, EventArgs e)
         {
@@ -100,6 +119,12 @@ namespace Task1
             {
                 btnCreate.Text = "Создать";
                 this.Text = "Создание пользователя";
+
+                foreach (var reward in _rewards)
+                {
+                    listRewardsAvailable.Items.Add(reward.Title);
+                }
+
             }
             else
             {
@@ -109,6 +134,67 @@ namespace Task1
                 txtFirstName.Text = _user.FirstName;
                 txtLastName.Text = _user.LastName;
                 txtBirthDay.Text = _user.BirthDay.ToString("dd.MM.yyyy");
+
+                foreach (var reward in _rewardsTemp)
+                {
+                    listRewardsUser.Items.Add(reward.Title);
+                }
+
+                foreach (var reward in _rewards)
+                {
+                    if (listRewardsUser.FindString(reward.Title) == ListBox.NoMatches)
+                    {
+                        listRewardsAvailable.Items.Add(reward.Title);
+                    }
+                }
+
+            }
+        }
+
+        private void btnAddReward_Click(object sender, EventArgs e)
+        {
+            if (listRewardsAvailable.Items.Count > 0)
+            {
+                if (listRewardsAvailable.SelectedIndex != -1)
+                {
+                    string titleReward = (string)listRewardsAvailable.SelectedItem;
+
+                    listRewardsUser.Items.Add(titleReward);
+
+                    foreach (var reward in _rewards)
+                    {
+                        if (reward.Title == titleReward)
+                        {
+                            _rewardsTemp.Add(reward);
+                            listRewardsAvailable.Items.Remove(titleReward);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void FormCreationUser_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Rewards = _rewardsTemp;
+        }
+
+        private void btnRemoveReward_Click(object sender, EventArgs e)
+        {
+            if (listRewardsUser.Items.Count > 0)
+            {
+                string stringToRemove = (string)listRewardsUser.SelectedItem;
+
+                foreach (var reward in _rewardsTemp)
+                {
+                    if (reward.Title == stringToRemove)
+                    {
+                        _rewardsTemp.Remove(reward);
+                        listRewardsUser.Items.Remove(stringToRemove);
+                        listRewardsAvailable.Items.Add(stringToRemove);
+                        break;
+                    }
+                }
             }
         }
     }

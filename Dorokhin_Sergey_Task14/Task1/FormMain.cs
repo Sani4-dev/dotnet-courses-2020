@@ -44,9 +44,9 @@ namespace Task1
 
         private void InitUsers()
         {
-            _users.Add(new User("Den", "Sidorov", new System.DateTime(1900, 1, 5)));
-            _users.Add(new User("Ivan", "Ivanov", new System.DateTime(1997, 3, 12)));
-            _users.Add(new User("Maxim", "Petrov", new System.DateTime(2003, 9, 27)));
+            _users.Add(new User("Den", "Sidorov", new System.DateTime(1900, 1, 5), new BindingList<Reward>()));
+            _users.Add(new User("Ivan", "Ivanov", new System.DateTime(1997, 3, 12), new BindingList<Reward>()));
+            _users.Add(new User("Maxim", "Petrov", new System.DateTime(2003, 9, 27), new BindingList<Reward>()));
         }
 
         private void InitRewards()
@@ -56,13 +56,14 @@ namespace Task1
 
         private void CreateUser()
         {
-            var formCreationUser = new FormCreationUser();
+            var formCreationUser = new FormCreationUser(_rewards);
 
             formCreationUser.ShowDialog(this);
 
             if (formCreationUser.DialogResult == DialogResult.OK)
             {
-                _users.Add(new User(formCreationUser.FirstName, formCreationUser.LastName, formCreationUser.BirthDay));
+                _users.Add(new User(formCreationUser.FirstName, formCreationUser.LastName, formCreationUser.BirthDay, 
+                    formCreationUser.Rewards));
             }
         }
 
@@ -72,7 +73,7 @@ namespace Task1
             {
                 User user = (User)ctlUsers.SelectedCells[0].OwningRow.DataBoundItem;
 
-                var formEditingUser = new FormCreationUser(user);
+                var formEditingUser = new FormCreationUser(user, _rewards);
 
                 formEditingUser.ShowDialog(this);
 
@@ -93,7 +94,7 @@ namespace Task1
             {
                 User user = (User)ctlUsers.SelectedCells[0].OwningRow.DataBoundItem;
 
-                var formSureDelete = new FormSureDelete();
+                var formSureDelete = new FormSureDelete(Caller.User);
 
                 formSureDelete.ShowDialog(this);
 
@@ -104,9 +105,73 @@ namespace Task1
             }
         }
 
+        private void CreateReward()
+        {
+            var formCreationReward = new FormCreationReward();
+
+            formCreationReward.ShowDialog(this);
+
+            if (formCreationReward.DialogResult == DialogResult.OK)
+            {
+                _rewards.Add(new Reward(formCreationReward.NameReward, formCreationReward.Description));
+            }
+        }
+
+        private void EditReward()
+        {
+            if (ctlRewards.SelectedCells.Count > 0)
+            {
+                Reward reward = (Reward)ctlRewards.SelectedCells[0].OwningRow.DataBoundItem;
+
+                var formEditingReward = new FormCreationReward(reward);
+
+                formEditingReward.ShowDialog(this);
+
+                if (formEditingReward.DialogResult == DialogResult.OK)
+                {
+                    reward.Title = formEditingReward.NameReward;
+                    reward.Description = formEditingReward.Description;
+
+                    ctlRewards.Refresh();
+                }
+            }
+        }
+
+        private void DeleteReward()
+        {
+            if (ctlRewards.SelectedCells.Count > 0)
+            {
+                Reward reward = (Reward)ctlRewards.SelectedCells[0].OwningRow.DataBoundItem;
+
+                var formSureDelete = new FormSureDelete(Caller.Reward);
+
+                formSureDelete.ShowDialog(this);
+
+                if (formSureDelete.DialogResult == DialogResult.OK)
+                {
+                    _rewards.Remove(reward);
+
+                    foreach (var user in _users)
+                    {
+                        if (user.IsRewardContains(reward))
+                        {
+                            user.RemoveReward(reward);
+                        }
+                    }
+                }
+            }
+        }
+
         private void MenuItemCreateUser_Click(object sender, System.EventArgs e)
         {
-            CreateUser();
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                CreateUser();
+            }
+            else 
+            {
+                CreateReward();
+            }
         }
 
         private void ctlUsers_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
@@ -142,33 +207,78 @@ namespace Task1
 
         private void MenuItemEditUser_Click(object sender, System.EventArgs e)
         {
-            EditUser();
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                EditUser();
+            }
+            else
+            {
+                EditReward();
+            }
         }
 
         private void MenuItemDeleteUser_Click(object sender, System.EventArgs e)
         {
-            DeleteUser();
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                DeleteUser();
+            }
+            else
+            {
+                DeleteReward();
+            }
         }
 
         private void ContextMenuItemCreateUser_Click(object sender, System.EventArgs e)
         {
-            CreateUser();
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                CreateUser();
+            }
+            else
+            {
+                CreateReward();
+            }
         }
 
         private void contextMenuItemEditUser_Click(object sender, System.EventArgs e)
         {
-            EditUser();
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                EditUser();
+            }
+            else
+            {
+                EditReward();
+            }
+        }
+
+        private void contextMenuItemDeleteUser_Click(object sender, System.EventArgs e)
+        {
+            if (tabCtlSelect.SelectedIndex == 0)
+            {
+                DeleteUser();
+            }
+            else
+            {
+                DeleteReward();
+            }
         }
 
         private void ctlUsers_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if ((e.RowIndex > -1) || (e.Button == MouseButtons.Right))
+            {
                 ctlUsers.CurrentCell = ctlUsers[e.ColumnIndex, e.RowIndex];
+            }
         }
 
-        private void contextMenuItemDeleteUser_Click(object sender, System.EventArgs e)
+        private void ctlRewards_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            DeleteUser();
+            if ((e.RowIndex > -1) || (e.Button == MouseButtons.Right))
+            {
+                ctlRewards.CurrentCell = ctlRewards[e.ColumnIndex, e.RowIndex];
+            }
         }
     }
 }
