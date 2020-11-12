@@ -78,7 +78,7 @@
             this.txtFirstName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtFirstName.Location = new System.Drawing.Point(165, 16);
-            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFirstName.Margin = new System.Windows.Forms.Padding(4);
             this.txtFirstName.Name = "txtFirstName";
             this.txtFirstName.Size = new System.Drawing.Size(332, 22);
             this.txtFirstName.TabIndex = 3;
@@ -89,7 +89,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtLastName.Location = new System.Drawing.Point(165, 95);
-            this.txtLastName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtLastName.Margin = new System.Windows.Forms.Padding(4);
             this.txtLastName.Name = "txtLastName";
             this.txtLastName.Size = new System.Drawing.Size(332, 22);
             this.txtLastName.TabIndex = 4;
@@ -100,7 +100,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dtpDateBirthday.Location = new System.Drawing.Point(165, 178);
-            this.dtpDateBirthday.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpDateBirthday.Margin = new System.Windows.Forms.Padding(4);
             this.dtpDateBirthday.Name = "dtpDateBirthday";
             this.dtpDateBirthday.Size = new System.Drawing.Size(332, 22);
             this.dtpDateBirthday.TabIndex = 5;
@@ -109,7 +109,7 @@
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.Location = new System.Drawing.Point(895, 492);
-            this.btnApply.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnApply.Margin = new System.Windows.Forms.Padding(4);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(156, 47);
             this.btnApply.TabIndex = 6;
@@ -129,16 +129,20 @@
             // 
             // listRewardsUser
             // 
+            this.listRewardsUser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listRewardsUser.FormattingEnabled = true;
             this.listRewardsUser.ItemHeight = 16;
             this.listRewardsUser.Location = new System.Drawing.Point(29, 268);
-            this.listRewardsUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listRewardsUser.Margin = new System.Windows.Forms.Padding(4);
             this.listRewardsUser.Name = "listRewardsUser";
             this.listRewardsUser.Size = new System.Drawing.Size(332, 164);
             this.listRewardsUser.TabIndex = 8;
             // 
             // labelAvailableRewards
             // 
+            this.labelAvailableRewards.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labelAvailableRewards.AutoSize = true;
             this.labelAvailableRewards.Location = new System.Drawing.Point(591, 247);
             this.labelAvailableRewards.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
@@ -149,18 +153,21 @@
             // 
             // listAvailableRewards
             // 
+            this.listAvailableRewards.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.listAvailableRewards.FormattingEnabled = true;
             this.listAvailableRewards.ItemHeight = 16;
             this.listAvailableRewards.Location = new System.Drawing.Point(595, 268);
-            this.listAvailableRewards.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listAvailableRewards.Margin = new System.Windows.Forms.Padding(4);
             this.listAvailableRewards.Name = "listAvailableRewards";
             this.listAvailableRewards.Size = new System.Drawing.Size(332, 164);
             this.listAvailableRewards.TabIndex = 10;
             // 
             // btnAddToUser
             // 
+            this.btnAddToUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddToUser.Location = new System.Drawing.Point(487, 268);
-            this.btnAddToUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddToUser.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddToUser.Name = "btnAddToUser";
             this.btnAddToUser.Size = new System.Drawing.Size(100, 28);
             this.btnAddToUser.TabIndex = 11;
@@ -170,8 +177,9 @@
             // 
             // btnRemoveFromUser
             // 
+            this.btnRemoveFromUser.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveFromUser.Location = new System.Drawing.Point(372, 404);
-            this.btnRemoveFromUser.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveFromUser.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveFromUser.Name = "btnRemoveFromUser";
             this.btnRemoveFromUser.Size = new System.Drawing.Size(100, 28);
             this.btnRemoveFromUser.TabIndex = 12;
@@ -197,7 +205,7 @@
             this.Controls.Add(this.labelDateBirthday);
             this.Controls.Add(this.labelLastName);
             this.Controls.Add(this.labelFirstName);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(1085, 601);
             this.Name = "FormUser";
             this.Text = "Пользователь";
