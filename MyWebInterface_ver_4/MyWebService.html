@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Пользователи и награды</title>
+		<link rel="stylesheet" href="MyWebService.css">
+		<script type="text/javascript" src="MyWebService.js" charset="UTF-8"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/sunny/jquery-ui.css">
+		<script type="text/javascript">
+			$(function() {
+			
+				$.datepicker.setDefaults($.datepicker.regional['ru']);
+				$('#datep').datepicker({
+					changeMonth: true,
+					changeYear: true,
+					yearRange: "1900:2020"
+				});
+			});
+		</script>  
+	</head>
+	<body onload="myConfigure()">
+
+		<div id="header">Пользователи и награды</div>
+		
+		<h2>Доступные таблицы</h2>
+		
+		<div class="tab">
+		  <button class="tablinks" onclick="openTable(event, 'users')">Пользователи</button>
+		  <button class="tablinks" onclick="openTable(event, 'rewards')">Награды</button>
+		</div>
+
+		<div id="users" class="tabcontent">
+		  <table>
+			  <tr>
+				<th>Идентификатор</th>
+				<th>Имя</th>
+				<th>Фамилия</th>
+				<th>Дата рождения</th>
+				<th>Возраст</th>
+				<th>Награды</th>
+				<th>Элементы управления</th>
+			  </tr>
+			  <tr>
+				<td>1</td>
+				<td>Алексей</td>
+				<td>Гаврилов</td>
+				<td>17.04.1974</td>
+				<td>46</td>
+				<td>Премия дарвина</td>
+				<td>
+					<input type="button" value="Редактировать" onclick="EditUser()">
+					<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить пользователя?')">
+				</td>
+			  </tr>
+			  <tr>
+				<td>2</td>
+				<td>Николай</td>
+				<td>Васильев</td>
+				<td>05.06.2003</td>
+				<td>17</td>
+				<td></td>
+				<td>
+					<input type="button" value="Редактировать" onclick="EditUser()">
+					<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить пользователя?')">
+				</td>
+			  </tr>
+			  <tr>
+				<td>3</td>
+				<td>Григорий</td>
+				<td>Антиков</td>
+				<td>10.11.1984</td>
+				<td>36</td>
+				<td>Премия мира</td>
+				<td>
+					<input type="button" value="Редактировать" onclick="EditUser()">
+					<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить пользователя?')">
+				</td>
+			  </tr>
+			  <tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<input type="button" value="Создать" onclick="CreateUser()">
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<div id="rewards" class="tabcontent">
+			<table>
+				<tr>
+					<th>Идентификатор</th>
+					<th>Наименование</th>
+					<th>Описание</th>
+					<th>Элементы управления</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>Премия Дарвина</td>
+					<td>Эта премия выдается за выдающиеся заслуги бла бла бла...</td>
+					<td>
+						<input type="button" value="Редактировать" onclick="EditReward()">
+						<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить награду?')">
+					</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>Какая то непонятная премия</td>
+					<td></td>
+					<td>
+						<input type="button" value="Редактировать" onclick="EditReward()">
+						<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить награду?')">
+					</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Премия мира</td>
+					<td>Эта премия тоже за что то выдается.</td>
+					<td>
+						<input type="button" value="Редактировать" onclick="EditReward()">
+						<input type="button" value="Удалить" onclick="RemoveConfirmation('Вы точно желаете удалить награду?')">
+					</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+						<input type="button" value="Создать" onclick="CreateReward()">
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<div id="user" class="modal">
+		  
+		  <form class="modal-content" action="" method="post">
+
+			<div class="container">
+				<label for="uFisrtName"><b>Имя</b></label>
+				<input type="text" placeholder="Введите имя" name="uFirstName" required>
+
+				<label for="ulastName"><b>Фамилия</b></label>
+				<input type="text" placeholder="Введите фамилию" name="uLastName" required>
+				
+				<label for="uBirthday"><b>Дата рождения</b></label>
+				<input id="datep" required>
+				
+				<label for="uRewardsUser"><b>Награды пользователя</b></label>
+				<select id="selectRewardsUser" name="selectRewardsUser" multiple>
+					<option selected value="s1">Премия Дарвина</option>
+					<option value="s2">Премия мира</option>
+				</select>
+				
+				<input id="btnRemoveReward" class="buttonsUserEdit" type="button" value="Убрать награду">
+				<br>
+				
+				<label for="uRewardsAvailable"><b>Награды доступные</b></label>
+				<select id="selectRewardsAvailable" name="selectRewardsAvailable" multiple>
+					<option selected value="s1">Премия Дарвина</option>
+					<option value="s2">Премия мира</option>
+					<option value="s3">Еще одна какая-либо премия...</option>
+				</select>
+				
+				<input id="btnAddReward" class="buttonsUserEdit" type="button" value="Добавить награду">
+			</div>
+
+			<div class="container" style="background-color:#f1f1f1">
+				<button id="btnActionUser" type="submit"></button>
+				<button type="button" onclick="document.getElementById('user').style.display='none'" class="cancelbtn">Отмена</button>
+			</div>
+		  </form>
+		</div>
+		
+		<div id="reward" class="modal">
+		  
+		  <form class="modal-content" action="" method="post">
+
+			<div class="container">
+				<label for="uTitle"><b>Наименование</b></label>
+				<input type="text" placeholder="Введите название" name="uTitle" required>
+
+				<label for="uDescription"><b>Описание</b></label>
+				<input type="text" placeholder="Введите описание" name="uDescription" required>
+			</div>
+
+			<div class="container" style="background-color:#f1f1f1">
+				<button id="btnActionReward" type="submit"></button>
+				<button type="button" onclick="document.getElementById('reward').style.display='none'" class="cancelbtn">Отмена</button>
+			</div>
+		  </form>
+		</div>
+		
+		<div id="footer">&copy; Дорохин Сергей</div>
+   
+	</body>
+</html> 
