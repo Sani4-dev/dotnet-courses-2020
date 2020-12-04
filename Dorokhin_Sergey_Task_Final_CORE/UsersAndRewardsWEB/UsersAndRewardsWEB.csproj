@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HelperEntities\HelperEntities.csproj" />
+    <ProjectReference Include="..\UsersAndRewards.BLL\UsersAndRewards.BLL.csproj" />
+    <ProjectReference Include="..\UsersAndRewardsSQL.DAL\UsersAndRewardsSQL.DAL.csproj" />
+  </ItemGroup>
+
+</Project>
