@@ -71,7 +71,19 @@
                     <td>@user.LastName</td>
                     <td>@user.DateBirthday.ToString("dd.MM.yyyy")</td>
                     <td>@user.Age</td>
-                    <td>@user.RewardsAsString</td>
+                    <td>
+                        @for (int i = 0; i < user.Rewards.Count; i++)
+                        {
+                            if (i == user.Rewards.Count - 1)
+                            {
+                                @user.Rewards[i].Title
+                            }
+                            else
+                            {
+                                @user.Rewards[i].Title<br>
+                            }
+                        }
+                    </td>
                     <td>
                         <input type="button" value="Редактировать" onclick="EditUser(this)">
                         <input type="button" value="Удалить" onclick="RemoveUserConfirmation(this)">
@@ -138,22 +150,15 @@
                 <input id="datep" name="uBirthday" required>
 
                 <label for="uRewardsUser"><b>Награды пользователя</b></label>
-                <select id="selectRewardsUser" name="selectRewardsUser" multiple>
-                    <option value="s1">Премия Дарвина</option>
-                    <option value="s2">Премия мира</option>
-                </select>
+                <select id="selectRewardsUserCreate" name="selectRewardsUserCreate" multiple></select>
 
-                <input id="btnRemoveReward" class="buttonsUserEdit" type="button" value="Убрать награду">
+                <input id="btnRemoveRewardCreateUser" class="buttonsUserEdit" type="button" value="Убрать награду" onclick="RemoveRewardToUserCreation()">
                 <br>
 
                 <label for="uRewardsAvailable"><b>Награды доступные</b></label>
-                <select id="selectRewardsAvailable" name="selectRewardsAvailable" multiple>
-                    <option value="s1">Премия Дарвина</option>
-                    <option value="s2">Премия мира</option>
-                    <option value="s3">Еще одна какая-либо премия...</option>
-                </select>
+                <select id="selectRewardsAvailableCreate" name="selectRewardsAvailableCreate"multiple></select>
 
-                <input id="btnAddReward" class="buttonsUserEdit" type="button" value="Добавить награду">
+                <input id="btnAddRewardCreateUser" class="buttonsUserEdit" type="button" value="Добавить награду" onclick="AddRewardToUserCreation()">
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
@@ -180,22 +185,22 @@
                 <input type="text" id="datep_2" value="05.05.2005" name="uBirthday" required>
 
                 <label for="uRewardsUser"><b>Награды пользователя</b></label>
-                <select id="selectRewardsUser" name="selectRewardsUser" multiple>
+                <select id="selectRewardsUserEdit" name="selectRewardsUserEdit" multiple>
                     <option value="s1">Премия Дарвина</option>
                     <option value="s2">Премия мира</option>
                 </select>
 
-                <input id="btnRemoveReward" class="buttonsUserEdit" type="button" value="Убрать награду">
+                <input id="btnRemoveRewardEditUser" class="buttonsUserEdit" type="button" value="Убрать награду">
                 <br>
 
                 <label for="uRewardsAvailable"><b>Награды доступные</b></label>
-                <select id="selectRewardsAvailable" name="selectRewardsAvailable" multiple>
+                <select id="selectRewardsAvailableEdit" name="selectRewardsAvailableEdit" multiple>
                     <option value="s1">Премия Дарвина</option>
                     <option value="s2">Премия мира</option>
                     <option value="s3">Еще одна какая-либо премия...</option>
                 </select>
 
-                <input id="btnAddReward" class="buttonsUserEdit" type="button" value="Добавить награду">
+                <input id="btnAddRewardEditUser" class="buttonsUserEdit" type="button" value="Добавить награду">
             </div>
 
             <div class="container" style="background-color:#f1f1f1">

@@ -20,7 +20,21 @@ function EditUser(obj) {
 	document.getElementById('userEdit').style.display = 'block';
 }
 
-function CreateUser(){
+function CreateUser() {
+	var availableRewardsBox = document.getElementById('selectRewardsAvailableCreate');
+
+	var table = document.getElementById('rewards');
+	var rowList = table.querySelectorAll('tr');
+
+	if (rowList.length > 2) {
+		for (let i = 1; i < rowList.length - 1; i++) {
+			var reward = document.createElement('option');
+
+			reward.innerHTML = rowList[i].children[1].innerHTML;
+			availableRewardsBox.append(reward);
+		}
+	}
+
 	document.getElementById('btnCreateUser').innerHTML = "Создать";
 	document.getElementById('user').style.display = 'block';
 }
@@ -53,6 +67,28 @@ function RemoveRewardConfirmation(obj) {
 			//body: "rewardIdToRemove=" + obj.parentNode.parentNode.querySelectorAll('td')[0].innerHTML,
 		//});
     }
+}
+
+function AddRewardToUserCreation() {
+	var userRewardsBox = document.getElementById('selectRewardsUserCreate');
+	var availableRewardsBox = document.getElementById('selectRewardsAvailableCreate');
+
+	for (let elem of availableRewardsBox.children) {
+		if (elem.innerHTML == availableRewardsBox.value) {
+			userRewardsBox.append(elem);
+		}
+	}
+}
+
+function RemoveRewardToUserCreation() {
+	var userRewardsBox = document.getElementById('selectRewardsUserCreate');
+	var availableRewardsBox = document.getElementById('selectRewardsAvailableCreate');
+
+	for (let elem of userRewardsBox.children) {
+		if (elem.innerHTML == userRewardsBox.value) {
+			availableRewardsBox.append(elem);
+		}
+	}
 }
 
 function myConfigure() {

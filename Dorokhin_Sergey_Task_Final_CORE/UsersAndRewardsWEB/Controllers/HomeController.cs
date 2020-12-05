@@ -66,7 +66,22 @@ namespace UsersAndRewardsWEB.Controllers
             string userFirstName = Request.Form["uFirstName"];
             string userLastName = Request.Form["uLastName"];
             string userBirthday = Request.Form["uBirthday"];
+            string stringWithRewardsNames = Request.Form["selectRewardsUserCreate"];
             string[] userBirthdayParsed = userBirthday.Split(".");
+            string[] rewardsNames = stringWithRewardsNames.Split(",");
+            var rewardsList = new List<Entites.Reward>();
+            
+            
+            foreach (var reward in _rewardsBL.GetList())
+            {
+                foreach (var rewardName in rewardsNames)
+                {
+                    if (rewardName == reward.Title)
+                    {
+                        rewardsList.Add(reward);
+                    }
+                }
+            }
 
             _usersBL.Add(new Entites.User(0, 
                                           userFirstName, 
@@ -74,7 +89,7 @@ namespace UsersAndRewardsWEB.Controllers
                                           new DateTime(int.Parse(userBirthdayParsed[2]), 
                                                        int.Parse(userBirthdayParsed[1]),
                                                        int.Parse(userBirthdayParsed[0])),
-                                          new List<Entites.Reward>()));
+                                          rewardsList));
             
             return RedirectToAction("Index");
         }
