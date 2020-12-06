@@ -162,7 +162,7 @@
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button id="btnCreateUser" type="submit"></button>
+                <button id="btnCreateUser" type="submit" onclick="HandlerUndoSubmitCreate()"></button>
                 <button type="button" onclick="document.getElementById('user').style.display='none'" class="cancelbtn">Отмена</button>
             </div>
         </form>
@@ -185,26 +185,19 @@
                 <input type="text" id="datep_2" value="05.05.2005" name="uBirthday" required>
 
                 <label for="uRewardsUser"><b>Награды пользователя</b></label>
-                <select id="selectRewardsUserEdit" name="selectRewardsUserEdit" multiple>
-                    <option value="s1">Премия Дарвина</option>
-                    <option value="s2">Премия мира</option>
-                </select>
+                <select id="selectRewardsUserEdit" name="selectRewardsUserEdit" multiple></select>
 
-                <input id="btnRemoveRewardEditUser" class="buttonsUserEdit" type="button" value="Убрать награду">
+                <input id="btnRemoveRewardEditUser" class="buttonsUserEdit" type="button" value="Убрать награду" onclick="RemoveRewardToUserEdit()">
                 <br>
 
                 <label for="uRewardsAvailable"><b>Награды доступные</b></label>
-                <select id="selectRewardsAvailableEdit" name="selectRewardsAvailableEdit" multiple>
-                    <option value="s1">Премия Дарвина</option>
-                    <option value="s2">Премия мира</option>
-                    <option value="s3">Еще одна какая-либо премия...</option>
-                </select>
+                <select id="selectRewardsAvailableEdit" name="selectRewardsAvailableEdit" multiple></select>
 
-                <input id="btnAddRewardEditUser" class="buttonsUserEdit" type="button" value="Добавить награду">
+                <input id="btnAddRewardEditUser" class="buttonsUserEdit" type="button" value="Добавить награду" onclick="AddRewardToUserEdit()">
             </div>
 
             <div class="container" style="background-color:#f1f1f1">
-                <button id="btnEditUser" type="submit"></button>
+                <button id="btnEditUser" type="submit" onclick="HandlerUndoSubmitEdit()"></button>
                 <button type="button" onclick="document.getElementById('userEdit').style.display='none'" class="cancelbtn">Отмена</button>
             </div>
         </form>
