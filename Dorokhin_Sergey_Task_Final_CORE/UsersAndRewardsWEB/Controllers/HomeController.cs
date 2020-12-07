@@ -14,6 +14,7 @@ namespace UsersAndRewardsWEB.Controllers
 {
     public class HomeController : Controller
     {
+        private static int _mode = 0;
         private UsersBL _usersBL = new UsersBL(new UsersSql());
         private RewardsBL _rewardsBL = new RewardsBL(new RewardsSql());
         private Usewards _usewards = new Usewards();
@@ -21,7 +22,7 @@ namespace UsersAndRewardsWEB.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            _usewards.UsersList = _usersBL.GetList();
+            _usewards.UsersList = _usersBL.Sort(_mode);
             _usewards.RewardsList = _rewardsBL.GetList();
 
             return View(_usewards);
@@ -107,20 +108,57 @@ namespace UsersAndRewardsWEB.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult UpdateUser()
+        //public IActionResult UpdateUser()
+        //{
+        //    int userId = int.Parse(Request.Form["uUserId"]);
+        //    string userFirstName = Request.Form["uFirstName"];
+        //    string userLastName = Request.Form["uLastName"];
+        //    string userBirthday = Request.Form["uBirthday"];
+        //    string stringWithRewardsNames = Request.Form["selectRewardsUserEdit"];
+        //    string[] userBirthdayParsed = userBirthday.Split(".");
+        //    var rewardsList = new List<Entites.Reward>();
+
+        //    if (stringWithRewardsNames != null)
+        //    {
+        //        string[] rewardsNames = stringWithRewardsNames.Split(",");
+                
+        //        foreach (var reward in _rewardsBL.GetList())
+        //        {
+        //            foreach (var rewardName in rewardsNames)
+        //            {
+        //                if (rewardName == reward.Title)
+        //                {
+        //                    rewardsList.Add(reward);
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    _usersBL.Update(new Entites.User(userId,
+        //                                     userFirstName,
+        //                                     userLastName,
+        //                                     new DateTime(int.Parse(userBirthdayParsed[2]), 
+        //                                                  int.Parse(userBirthdayParsed[1]), 
+        //                                                  int.Parse(userBirthdayParsed[0])),
+        //                                     rewardsList));
+
+        //    return RedirectToAction("Index");
+        //}
+
+        public IActionResult UpdateUser(int uUserId, string uFirstName, string uLastName, DateTime uBirthday, string selectRewardsUserEdit)
         {
-            int userId = int.Parse(Request.Form["uUserId"]);
-            string userFirstName = Request.Form["uFirstName"];
-            string userLastName = Request.Form["uLastName"];
-            string userBirthday = Request.Form["uBirthday"];
-            string stringWithRewardsNames = Request.Form["selectRewardsUserEdit"];
-            string[] userBirthdayParsed = userBirthday.Split(".");
+            int userId = uUserId;
+            string userFirstName = uFirstName;
+            string userLastName = uLastName;
+            DateTime userBirthday = uBirthday;
+            string stringWithRewardsNames = selectRewardsUserEdit;
+            //string[] userBirthdayParsed = userBirthday.Split(".");
             var rewardsList = new List<Entites.Reward>();
 
             if (stringWithRewardsNames != null)
             {
                 string[] rewardsNames = stringWithRewardsNames.Split(",");
-                
+
                 foreach (var reward in _rewardsBL.GetList())
                 {
                     foreach (var rewardName in rewardsNames)
@@ -136,10 +174,16 @@ namespace UsersAndRewardsWEB.Controllers
             _usersBL.Update(new Entites.User(userId,
                                              userFirstName,
                                              userLastName,
-                                             new DateTime(int.Parse(userBirthdayParsed[2]), 
-                                                          int.Parse(userBirthdayParsed[1]), 
-                                                          int.Parse(userBirthdayParsed[0])),
+                                             userBirthday,
                                              rewardsList));
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult SortUsers(int mode)
+        {
+            _mode = mode;
 
             return RedirectToAction("Index");
         }

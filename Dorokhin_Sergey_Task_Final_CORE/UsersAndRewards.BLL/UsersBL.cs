@@ -47,5 +47,24 @@ namespace UsersAndRewards.BLL
         {
             return _users.GetList();
         }
+
+        public List<User> Sort(int mode)
+        {
+            switch (mode)
+            {
+                case 1:
+                    return GetList().OrderBy(u => u.Id).ToList();
+                case 2:
+                    return GetList().OrderBy(u => u.FirstName).ToList();
+                case 3:
+                    return GetList().OrderBy(u => u.LastName).ToList();
+                case 4:
+                    return GetList().OrderBy(u => u.DateBirthday).ToList();
+                case 5:
+                    return GetList().OrderBy(u => u.Age).ToList();
+                default:
+                    return GetList().OrderBy(u => u.Id).ToList();
+            }
+        }
     }
 }
